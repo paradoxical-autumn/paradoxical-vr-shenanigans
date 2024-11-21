@@ -2,6 +2,12 @@
 
 public static class Strings
 {
+    public static class Meta
+    {
+        public const string Version = "2024.11.21.2143";
+        public const string LastCompiler = "paradoxical-autumn";
+    }
+
     public static class Application
     {
         public static string AppName = "Paradox VR Tools";

@@ -1,5 +1,6 @@
 ﻿using Spectre.Console;
 using Spectre.Console.Cli;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ParadoxVrTools.Commands;
@@ -7,7 +8,9 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
 {
     public class Settings : CommandSettings
     {
-        
+        [Description("Prints helpful information about the app.")]
+        [CommandOption("-i|--info|--information")]
+        public bool PrintVersion { get; set; }
     }
 
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
@@ -16,6 +19,49 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
         {
             AnsiConsole.MarkupLine($"[red]{Strings.Errors.NotInteractiveConsole}[/]");
             return 1;
+        }
+
+        if (settings.PrintVersion)
+        {
+            AnsiConsole.Write(new FigletText("Paradox VR Tools"));
+
+            string datastr = @"made with <3 (and tears) by autumn and is provided to whoever finds this note.
+
+this was my first major project learning C# and i'd argue it turned out quite well. but i still need to thank you,
+i dont get anything from uploading my code and i dont want anything in particular -- just to know that my code made someone's day.
+
+anyway, i hope u enjoy this collection of random tools and i hope u find them helpful!
+ttyl, see you in cyberspace.
+";
+
+            var pnl = new Panel(datastr)
+                .RoundedBorder()
+                .BorderColor(Color.SeaGreen3)
+                .Header("NOTE FROM PARADOX.txt");
+
+            AnsiConsole.Write(pnl);
+
+            var table = new Table();
+            table.BorderColor(Color.SeaGreen3);
+
+
+            table.AddColumn("METADATA").Centered();
+            table.AddColumn("VALUE").Centered();
+
+            table.AddRow("Version", Strings.Meta.Version);
+            table.AddRow("Compiled by", Strings.Meta.LastCompiler);
+
+            AnsiConsole.Write(table);
+
+            pnl = new Panel(@"this is the cool stuff that makes this app work!!
+https://spectreconsole.net/
+https://github.com/BnuuySolutions/OculusKiller
+C#
+")
+                .RoundedBorder()
+                .Header("ATTRIBUTION");
+            AnsiConsole.Write(pnl);
+            return 0;
         }
 
         while (true)

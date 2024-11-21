@@ -16,11 +16,6 @@ public static class Program
         app.Configure(config =>
         {
             config.SetApplicationName(Strings.Application.AppName);
-
-            config.AddCommand<SteamVRHomeKillCommand>("dsvrhome")
-                .WithDescription(Strings.Descriptions.DisableSteamVRHome);
-
-            
         });
 
         return await app.RunAsync(args);
