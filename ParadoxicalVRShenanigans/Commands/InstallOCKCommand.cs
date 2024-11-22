@@ -135,6 +135,32 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
 
         AnsiConsole.MarkupLine("[italic seagreen1]Finished all tasks successfully.[/]");
 
+        if (!AnsiConsole.Confirm(Locale.Prompts.RebootOVR))
+        {
+            AnsiConsole.MarkupLine("Okay, you'll have to reboot your PC to finish the installation.");
+            return 0;
+        }
+
+        AnsiConsole.MarkupLine("Got it, rebooting OVR.");
+
+        System.Diagnostics.Process proc = new System.Diagnostics.Process();
+        System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+        //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+
+        startInfo.UseShellExecute = false;
+        startInfo.FileName = "cmd.exe";
+        startInfo.Arguments = "/C net stop OVRService";
+
+        proc.StartInfo = startInfo;
+        proc.Start();
+
+        proc.WaitForExit();
+
+        startInfo.Arguments = "/C net start OVRService";
+        proc.Start();
+
+        proc.WaitForExit();
+
         return 0;
     }
 

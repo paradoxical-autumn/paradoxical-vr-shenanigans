@@ -23,6 +23,7 @@ public static class Locale
         public const string HaveCustomisedSteamPath = "Did you install steam to the default directory?";
         public const string BackupOculusDashExe = "Do you want to create a backup of oculus dash?";
         public const string UpdateAvailable = "There is an update available! Lucky you! Would you like to update?";
+        public const string RebootOVR = "Would you like to reboot OVRService so you don't have to reboot your PC?";
     }
 
     public static class Messages
