@@ -43,6 +43,8 @@ public static class Locale
     {
         public const string LoadingSettings = "Loading settings...";
         public const string Starting = "Starting...";
+        public const string DownloadingUpdate = "Downloading update...";
+        public const string InstallingUpdate = "Installing update and restarting...";
     }
 
     public static class MenuOptions
