@@ -7,8 +7,25 @@
     <Nullable>enable</Nullable>
     <PackageId>xyz.its-autumn.$(AssemblyName)</PackageId>
     <Title>Paradoxical VR Shenanigans</Title>
-    <AssemblyVersion>2024.1122.1748</AssemblyVersion>
+    <AssemblyVersion>2024.1122.1815</AssemblyVersion>
+    <Authors>paradoxical-autumn</Authors>
+    <PackageProjectUrl>https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans</PackageProjectUrl>
+    <Copyright>MIT Licence</Copyright>
+    <RepositoryUrl>https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <ApplicationIcon>..\icons\icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\icons\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
