@@ -46,6 +46,7 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
             pnl = new Panel(@"this is the cool stuff that makes this app work!!
 https://spectreconsole.net/
 https://github.com/BnuuySolutions/OculusKiller
+https://velopack.io/
 C#
 ")
                 .RoundedBorder()
