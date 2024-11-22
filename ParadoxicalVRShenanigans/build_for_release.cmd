@@ -2,4 +2,9 @@
 set /P "appver=Enter app version (X.Y.Z): "
 echo on
 dotnet publish -c Release --self-contained -r win-x64 -o .\publish
-vpk pack -u ParadoxicalVRShenanigans -v %appver% --packTitle "Paradoxical VR Shenanigans" --icon "..\Icons\icon.ico" -p .\publish -e ParadoxicalVRShenanigans.exe
+vpk pack -u ParadoxicalVRShenanigans -v %appver% ^
+--packTitle "Paradoxical VR Shenanigans" ^
+--icon "..\Icons\icon.ico" ^
+--packAuthors "paradoxical autumn" ^
+-p .\publish ^
+-e ParadoxicalVRShenanigans.exe

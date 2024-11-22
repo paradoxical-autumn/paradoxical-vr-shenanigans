@@ -7,8 +7,8 @@
     <Nullable>enable</Nullable>
     <PackageId>xyz.its-autumn.$(AssemblyName)</PackageId>
     <Title>Paradoxical VR Shenanigans</Title>
-    <AssemblyVersion>2024.1122.1815</AssemblyVersion>
-    <Authors>paradoxical-autumn</Authors>
+    <AssemblyVersion>2024.1122.1840</AssemblyVersion>
+    <Authors>paradoxical autumn</Authors>
     <PackageProjectUrl>https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans</PackageProjectUrl>
     <Copyright>MIT Licence</Copyright>
     <RepositoryUrl>https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans</RepositoryUrl>
