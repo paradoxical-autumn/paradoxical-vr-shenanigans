@@ -51,6 +51,7 @@ public static class Locale
     {
         public const string DisableSteamVRHome = "Disable SteamVR Home";
         public const string InstallOculusKiller = "Install OculusKiller";
+        public const string FixOculusWhiteBar = "Fix Quest Link White Bar";
         public const string Quit = "Quit";
     }
 
@@ -61,6 +62,7 @@ public static class Locale
         public const string SteamPath = "The path where steam is installed to";
         public const string BackupOCD = "If Oculus Dash should be backed up or not";
         public const string OculusPath = "The path where Oculus is installed to";
+        public const string FixOculusWhiteBar = "[Only required for Quest headsets] In some cases, a white bar can appear while using quest link. This attempts to mitigate that from happening.";
     }
 
     public static class NotStrings

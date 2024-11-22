@@ -82,6 +82,19 @@ C#
 
                         await new OCKCommand().ExecuteAsync(context, new_settings);
                         break;
+                    case Locale.MenuOptions.FixOculusWhiteBar:
+                        AnsiConsole.Clear();
+                        AnsiConsole.WriteLine();
+
+                        if (!Utils.IsElevated())
+                        {
+                            AnsiConsole.MarkupLine($"[red]{Locale.Errors.RequiresElevation}[/]");
+                            break;
+                        }
+
+                        await new FixWhitebarCommand().ExecuteAsync(context, new FixWhitebarCommand.Settings());
+
+                        break;
                     case Locale.MenuOptions.Quit:
                         AnsiConsole.Clear();
                         return 0;
@@ -120,6 +133,11 @@ C#
             new Markup(Locale.Descriptions.InstallOCK)
         );
 
+        table.AddRow(
+            new Markup($"[royalblue1]{Locale.MenuOptions.FixOculusWhiteBar}[/]"),
+            new Markup(Locale.Descriptions.FixOculusWhiteBar.EscapeMarkup())
+        );
+
         AnsiConsole.WriteLine();
         AnsiConsole.Write(table);
         AnsiConsole.WriteLine();
@@ -139,6 +157,7 @@ C#
                 .AddChoices(new[] {
                             Locale.MenuOptions.DisableSteamVRHome,
                             Locale.MenuOptions.InstallOculusKiller,
+                            Locale.MenuOptions.FixOculusWhiteBar,
                             Locale.MenuOptions.Quit
                 });
 
