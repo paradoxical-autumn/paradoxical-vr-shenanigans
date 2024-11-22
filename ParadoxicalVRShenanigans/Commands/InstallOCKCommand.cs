@@ -101,7 +101,7 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
         {
             await AnsiConsole.Status()
                 .Spinner(Spinner.Known.BouncingBar)
-                .StartAsync("[italic teal]backing up oculus...[/]", async ctx =>
+                .StartAsync("[italic royalblue1]backing up oculus...[/]", async ctx =>
                 {
                     MoveFile($"{path_to_dash_folder}/OculusDash.exe", $"{path_to_dash_folder}/OculusDash.exe.bak");
                     //Thread.Sleep(1000);
@@ -112,7 +112,7 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
 
         await AnsiConsole.Status()
             .Spinner(Spinner.Known.BouncingBar)
-            .StartAsync("[italic teal]installing hacked OculusDash.exe[/]", async ctx =>
+            .StartAsync("[italic royalblue1]installing hacked OculusDash.exe[/]", async ctx =>
             {
                 MoveFile($"{di.Path}/OculusDash.exe", $"{path_to_dash_folder}/OculusDash.exe");
                 //Thread.Sleep(1000);

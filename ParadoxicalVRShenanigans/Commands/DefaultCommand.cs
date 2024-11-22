@@ -36,7 +36,7 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
             table.AddColumn("METADATA").Centered();
             table.AddColumn("VALUE").Centered();
 
-            table.AddRow("Version", Locale.Meta.version.ToString());
+            table.AddRow("Version", Utils.GetVersion());
             table.AddRow("Compiled by", Locale.Meta.LastCompiler);
 
             table.LeftAligned();
@@ -104,19 +104,19 @@ C#
     {
         var table = new Table().HideHeaders().NoBorder();
 
-        table.Title($"[yellow]{Locale.Application.AppName}[/]");
+        table.Title($"[royalblue1]{Locale.Application.AppName}[/] [grey]{Utils.GetVersion()}[/]");
         table.AddColumn("col1", c => c.NoWrap().RightAligned().PadRight(3));
         table.AddColumn("col2", c => c.PadRight(0));
         table.AddEmptyRow();
 
         table.AddEmptyRow();
         table.AddRow(
-            new Markup($"[yellow]{Locale.MenuOptions.DisableSteamVRHome}[/]"),
+            new Markup($"[royalblue1]{Locale.MenuOptions.DisableSteamVRHome}[/]"),
             new Markup(Locale.Descriptions.DisableSteamVRHome)
         );
 
         table.AddRow(
-            new Markup($"[yellow]{Locale.MenuOptions.InstallOculusKiller}[/]"),
+            new Markup($"[royalblue1]{Locale.MenuOptions.InstallOculusKiller}[/]"),
             new Markup(Locale.Descriptions.InstallOCK)
         );
 

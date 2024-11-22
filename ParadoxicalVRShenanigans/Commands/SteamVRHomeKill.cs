@@ -50,7 +50,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
         //StreamReader sr = new StreamReader(set_path);
         string raw_data = File.ReadAllText(set_path);
 
-        AnsiConsole.MarkupLine($"[italic teal]beginning data write[/]");
+        AnsiConsole.MarkupLine($"[italic royalblue1]beginning data write[/]");
 
         try
         {
@@ -71,7 +71,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
             }
             
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-            //AnsiConsole.MarkupLine($"[teal]{output}[/]");
+            //AnsiConsole.MarkupLine($"[royalblue1]{output}[/]");
 
             File.WriteAllText(set_path, output);
         }
