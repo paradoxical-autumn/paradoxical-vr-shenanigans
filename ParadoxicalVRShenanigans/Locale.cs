@@ -6,7 +6,7 @@ public static class Locale
 {
     public static class Meta
     {
-        public static Version version = new Version(2024, 11, 22, 1210);
+        public static Version version = new Version(2024, 11, 22, 1301);
         public const string LastCompiler = "paradoxical-autumn";
     }
 
