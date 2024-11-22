@@ -8,11 +8,11 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
 {
     public class Settings : CommandSettings
     {
-        [Description(Strings.Descriptions.BackupOCD)]
+        [Description(Locale.Descriptions.BackupOCD)]
         [CommandOption("-b|--backup")]
         public bool BackupOCD { get; set; }
 
-        [Description(Strings.Descriptions.OculusPath)]
+        [Description(Locale.Descriptions.OculusPath)]
         [CommandOption("-p|--path")]
         public string? OculusPath { get; set; }
     }
@@ -25,7 +25,7 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
 
         if (!isAdmin)
         {
-            AnsiConsole.MarkupLine($"[red]{Strings.Errors.RequiresElevation}[/]");
+            AnsiConsole.MarkupLine($"[red]{Locale.Errors.RequiresElevation}[/]");
             return 1;
         }
 

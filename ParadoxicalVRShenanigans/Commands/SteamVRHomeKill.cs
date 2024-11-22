@@ -13,7 +13,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
 {
     public class Settings : CommandSettings
     {
-        [Description(Strings.Descriptions.SteamPath)]
+        [Description(Locale.Descriptions.SteamPath)]
         [CommandArgument(0, "[PATH]")]
         [DefaultValue("C:\\Program Files (x86)\\Steam")]
         public string? SteamPath { get; set; }
@@ -84,7 +84,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
 
             if (new_dat == raw_data)
             {
-                AnsiConsole.MarkupLine("[italic green]file verification success! [underline]your VR settings have not been edited.[/][/]");
+                AnsiConsole.MarkupLine("[italic seagreen1]file verification success! [underline]your VR settings have not been edited.[/][/]");
             }
             else
             {
@@ -94,7 +94,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
                 new_dat = File.ReadAllText(set_path);
                 if (new_dat == raw_data)
                 {
-                    AnsiConsole.MarkupLine("[italic green]file recovered! [underline]your VR settings have not been edited.[/][/]");
+                    AnsiConsole.MarkupLine("[italic seagreen1]file recovered! [underline]your VR settings have not been edited.[/][/]");
                 }
                 else
                 {
@@ -109,7 +109,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
 
         //sr.Close();
 
-        AnsiConsole.MarkupLine("[italic green]finished![/]");
+        AnsiConsole.MarkupLine("[italic seagreen1]finished![/]");
 
         return 0;
     }

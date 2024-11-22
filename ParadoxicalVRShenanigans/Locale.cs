@@ -2,7 +2,7 @@
 
 namespace ParadoxVrTools;
 
-public static class Strings
+public static class Locale
 {
     public static class Meta
     {
@@ -12,7 +12,7 @@ public static class Strings
 
     public static class Application
     {
-        public static string AppName = "Paradox VR Tools";
+        public static string AppName = "Paradoxical VR Shenanigans";
     }
 
     public static class Prompts
@@ -73,6 +73,25 @@ You may experience weirdness and will definitely have to deal with:
 
             Panel pnl = new Panel(datastr);
             pnl.RoundedBorder().BorderColor(Color.Red).Header("WARNING");
+
+            return pnl;
+        }
+
+        public static Panel SecretMenu()
+        {
+            string datastr = @"made with <3 (and tears) by autumn and is provided to whoever finds this note.
+
+this was my first major project learning C# and i'd argue it turned out quite well. but i still need to thank you,
+i dont get anything from uploading my code and i dont want anything in particular -- just to know that my code made someone's day.
+
+anyway, i hope u enjoy this collection of random tools and i hope u find them helpful!
+ttyl, see you in cyberspace.
+";
+
+            var pnl = new Panel(datastr)
+                .RoundedBorder()
+                .BorderColor(Color.SeaGreen3)
+                .Header("NOTE FROM PARADOX.txt");
 
             return pnl;
         }

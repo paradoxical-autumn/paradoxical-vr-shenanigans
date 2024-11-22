@@ -45,7 +45,7 @@ public static class Utils
         string s = (obj != null) ? obj.ToString()! : "NULL";
         try
         {
-            AnsiConsole.MarkupLine("[red]{0}[/]", $"{string.Format(Strings.Errors.Exception, s)}".EscapeMarkup());
+            AnsiConsole.MarkupLine("[red]{0}[/]", $"{string.Format(Locale.Errors.Exception, s)}".EscapeMarkup());
         }
         catch (Exception e)
         {

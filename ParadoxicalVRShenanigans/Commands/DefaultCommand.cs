@@ -17,27 +17,15 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
     {
         if (!AnsiConsole.Profile.Capabilities.Interactive)
         {
-            AnsiConsole.MarkupLine($"[red]{Strings.Errors.NotInteractiveConsole}[/]");
+            AnsiConsole.MarkupLine($"[red]{Locale.Errors.NotInteractiveConsole}[/]");
             return 1;
         }
 
         if (settings.PrintVersion)
         {
-            AnsiConsole.Write(new FigletText("Paradox VR Tools"));
+            AnsiConsole.Write(new FigletText(Locale.Application.AppName));
 
-            string datastr = @"made with <3 (and tears) by autumn and is provided to whoever finds this note.
-
-this was my first major project learning C# and i'd argue it turned out quite well. but i still need to thank you,
-i dont get anything from uploading my code and i dont want anything in particular -- just to know that my code made someone's day.
-
-anyway, i hope u enjoy this collection of random tools and i hope u find them helpful!
-ttyl, see you in cyberspace.
-";
-
-            var pnl = new Panel(datastr)
-                .RoundedBorder()
-                .BorderColor(Color.SeaGreen3)
-                .Header("NOTE FROM PARADOX.txt");
+            Panel pnl = Locale.NotStrings.SecretMenu();
 
             AnsiConsole.Write(pnl);
 
@@ -48,8 +36,10 @@ ttyl, see you in cyberspace.
             table.AddColumn("METADATA").Centered();
             table.AddColumn("VALUE").Centered();
 
-            table.AddRow("Version", Strings.Meta.version.ToString());
-            table.AddRow("Compiled by", Strings.Meta.LastCompiler);
+            table.AddRow("Version", Locale.Meta.version.ToString());
+            table.AddRow("Compiled by", Locale.Meta.LastCompiler);
+
+            table.LeftAligned();
 
             AnsiConsole.Write(table);
 
@@ -74,13 +64,13 @@ C#
             {
                 switch (choice)
                 {
-                    case Strings.MenuOptions.DisableSteamVRHome:
+                    case Locale.MenuOptions.DisableSteamVRHome:
                         AnsiConsole.Clear();
 
                         AnsiConsole.WriteLine();
                         await new SteamVRHomeKillCommand().ExecuteAsync(context, PromptForDSVRHSettings());
                         break;
-                    case Strings.MenuOptions.InstallOculusKiller:
+                    case Locale.MenuOptions.InstallOculusKiller:
                         AnsiConsole.Clear();
                         AnsiConsole.WriteLine();
 
@@ -92,7 +82,7 @@ C#
 
                         await new OCKCommand().ExecuteAsync(context, new_settings);
                         break;
-                    case Strings.MenuOptions.Quit:
+                    case Locale.MenuOptions.Quit:
                         AnsiConsole.Clear();
                         return 0;
 
@@ -103,7 +93,7 @@ C#
                 Utils.PrintErr(ex);
             }
 
-            if (!AnsiConsole.Confirm(Strings.Prompts.ReturnToMainMenu))
+            if (!AnsiConsole.Confirm(Locale.Prompts.ReturnToMainMenu))
             {
                 return 0;
             }
@@ -114,20 +104,20 @@ C#
     {
         var table = new Table().HideHeaders().NoBorder();
 
-        table.Title($"[yellow]{Strings.Application.AppName}[/]");
+        table.Title($"[yellow]{Locale.Application.AppName}[/]");
         table.AddColumn("col1", c => c.NoWrap().RightAligned().PadRight(3));
         table.AddColumn("col2", c => c.PadRight(0));
         table.AddEmptyRow();
 
         table.AddEmptyRow();
         table.AddRow(
-            new Markup($"[yellow]{Strings.MenuOptions.DisableSteamVRHome}[/]"),
-            new Markup(Strings.Descriptions.DisableSteamVRHome)
+            new Markup($"[yellow]{Locale.MenuOptions.DisableSteamVRHome}[/]"),
+            new Markup(Locale.Descriptions.DisableSteamVRHome)
         );
 
         table.AddRow(
-            new Markup($"[yellow]{Strings.MenuOptions.InstallOculusKiller}[/]"),
-            new Markup(Strings.Descriptions.InstallOCK)
+            new Markup($"[yellow]{Locale.MenuOptions.InstallOculusKiller}[/]"),
+            new Markup(Locale.Descriptions.InstallOCK)
         );
 
         AnsiConsole.WriteLine();
@@ -136,7 +126,7 @@ C#
 
         if (System.Environment.OSVersion.Platform != PlatformID.Win32NT)
         {
-            Panel pnl = Strings.NotStrings.WrongOS();
+            Panel pnl = Locale.NotStrings.WrongOS();
             AnsiConsole.Write(pnl);
         }
     }
@@ -144,12 +134,12 @@ C#
     private string ShowMainMenu()
     {
         var prompt = new SelectionPrompt<string>()
-                .Title(Strings.Prompts.InteractionPrompt)
+                .Title(Locale.Prompts.InteractionPrompt)
                 .HighlightStyle(new Style(foreground: Color.SeaGreen1, decoration: Decoration.Bold))
                 .AddChoices(new[] {
-                            Strings.MenuOptions.DisableSteamVRHome,
-                            Strings.MenuOptions.InstallOculusKiller,
-                            Strings.MenuOptions.Quit
+                            Locale.MenuOptions.DisableSteamVRHome,
+                            Locale.MenuOptions.InstallOculusKiller,
+                            Locale.MenuOptions.Quit
                 });
 
         prompt.HighlightStyle = new Style(Color.Black, Color.SeaGreen1 );
@@ -161,7 +151,7 @@ C#
 
     private SteamVRHomeKillCommand.Settings PromptForDSVRHSettings()
     {
-        string stm_pth = AnsiConsole.Prompt<string>(new TextPrompt<string>(Strings.Prompts.EnterSteamFolderPath).AllowEmpty());
+        string stm_pth = AnsiConsole.Prompt<string>(new TextPrompt<string>(Locale.Prompts.EnterSteamFolderPath).AllowEmpty());
 
         if (String.IsNullOrWhiteSpace(stm_pth))
             stm_pth = "C:\\Program Files (x86)\\Steam";
@@ -180,12 +170,12 @@ C#
 
         if (!isAdmin)
         {
-            AnsiConsole.MarkupLine($"[red]{Strings.Errors.RequiresElevation}[/]");
+            AnsiConsole.MarkupLine($"[red]{Locale.Errors.RequiresElevation}[/]");
             return null;
         }
 
-        bool backup = AnsiConsole.Confirm(Strings.Prompts.BackupOculusDashExe);
-        string oc_pth = AnsiConsole.Prompt<string>(new TextPrompt<string>(Strings.Prompts.EnterOculusFolderPath).AllowEmpty());
+        bool backup = AnsiConsole.Confirm(Locale.Prompts.BackupOculusDashExe);
+        string oc_pth = AnsiConsole.Prompt<string>(new TextPrompt<string>(Locale.Prompts.EnterOculusFolderPath).AllowEmpty());
 
         if (String.IsNullOrWhiteSpace(oc_pth))
             oc_pth = "C:\\Program Files\\Oculus";

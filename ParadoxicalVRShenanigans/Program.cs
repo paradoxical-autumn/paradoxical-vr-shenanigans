@@ -1,6 +1,4 @@
 ﻿using ParadoxVrTools.Commands;
-using ParadoxVrTools;
-using Spectre.Console;
 using Spectre.Console.Cli;
 using System.Text;
 
@@ -15,7 +13,7 @@ public static class Program
         var app = new CommandApp<DefaultCommand>();
         app.Configure(config =>
         {
-            config.SetApplicationName(Strings.Application.AppName);
+            config.SetApplicationName(Locale.Application.AppName);
         });
 
         return await app.RunAsync(args);
