@@ -19,7 +19,9 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
         public string? SteamPath { get; set; }
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
         var stm_pth = settings.SteamPath;
         var set_path = $"{stm_pth}/config/steamvr.vrsettings";
@@ -57,7 +59,6 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
             try
             {
                 jsonObj["steamvr"]["enableHomeApp"] = false;
-                AnsiConsole.WriteLine($"typeof: {jsonObj.steamvr.GetType()}");
             }
             catch (RuntimeBinderException)
             {

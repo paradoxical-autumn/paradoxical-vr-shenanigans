@@ -1,10 +1,12 @@
-﻿namespace ParadoxVrTools;
+﻿using Spectre.Console;
+
+namespace ParadoxVrTools;
 
 public static class Strings
 {
     public static class Meta
     {
-        public const string Version = "2024.11.21.2143";
+        public static Version version = new Version(2024, 11, 22, 1210);
         public const string LastCompiler = "paradoxical-autumn";
     }
 
@@ -18,8 +20,10 @@ public static class Strings
         public const string InteractionPrompt = "What would you like to do?";
         public const string ReturnToMainMenu = "Return to main menu?";
         public const string EnterSteamFolderPath = "Enter the path to your steam installation folder (contains steam.exe)\nOr, leave blank for default: ";
+        public const string EnterOculusFolderPath = "Enter the path to your oculus installation folder (contains steam.exe)\nOr, leave blank for default: ";
         public const string HaveCustomisedSteamPath = "Did you install steam to the default directory?";
         public const string BackupOculusDashExe = "Do you want to create a backup of oculus dash?";
+        public const string UpdateAvailable = "There is an update available! Lucky you! Would you like to update?";
     }
 
     public static class Messages
@@ -32,6 +36,7 @@ public static class Strings
         public const string SteamNotFound = "I couldn't find steam's installation directory.";
         public const string Exception = "An error occurred: {0}";
         public const string NotInteractiveConsole = "Console environment doesn't support interaction.";
+        public const string RequiresElevation = "You need to be running as an administrator to use this.";
     }
 
     public static class Statuses
@@ -53,10 +58,23 @@ public static class Strings
         public const string InstallOCK = "Installs Oculus Killer, an app that replaces Oculus Dash with SteamVR";
         public const string SteamPath = "The path where steam is installed to";
         public const string BackupOCD = "If Oculus Dash should be backed up or not";
+        public const string OculusPath = "The path where Oculus is installed to";
     }
 
-    public static class Commands
+    public static class NotStrings
     {
-        public const string NoSteamHome = "";
+        public static Panel WrongOS()
+        {
+            string datastr = @"[underline]You are using an unsupported OS.[/]
+You may experience weirdness and will definitely have to deal with:
+- Incorrect default paths
+- Missing functionality (sudo)
+- Other jank";
+
+            Panel pnl = new Panel(datastr);
+            pnl.RoundedBorder().BorderColor(Color.Red).Header("WARNING");
+
+            return pnl;
+        }
     }
 }

@@ -48,7 +48,7 @@ ttyl, see you in cyberspace.
             table.AddColumn("METADATA").Centered();
             table.AddColumn("VALUE").Centered();
 
-            table.AddRow("Version", Strings.Meta.Version);
+            table.AddRow("Version", Strings.Meta.version.ToString());
             table.AddRow("Compiled by", Strings.Meta.LastCompiler);
 
             AnsiConsole.Write(table);
@@ -83,7 +83,14 @@ C#
                     case Strings.MenuOptions.InstallOculusKiller:
                         AnsiConsole.Clear();
                         AnsiConsole.WriteLine();
-                        await new OCKCommand().ExecuteAsync(context, PromptForOCKSettings());
+
+                        var new_settings = PromptForOCKSettings();
+                        if (new_settings == null)
+                        {
+                            break;
+                        }
+
+                        await new OCKCommand().ExecuteAsync(context, new_settings);
                         break;
                     case Strings.MenuOptions.Quit:
                         AnsiConsole.Clear();
@@ -126,26 +133,34 @@ C#
         AnsiConsole.WriteLine();
         AnsiConsole.Write(table);
         AnsiConsole.WriteLine();
+
+        if (System.Environment.OSVersion.Platform != PlatformID.Win32NT)
+        {
+            Panel pnl = Strings.NotStrings.WrongOS();
+            AnsiConsole.Write(pnl);
+        }
     }
 
     private string ShowMainMenu()
     {
-        return AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
+        var prompt = new SelectionPrompt<string>()
                 .Title(Strings.Prompts.InteractionPrompt)
-                .HighlightStyle(new Style(foreground: Color.Orange1, decoration: Decoration.Bold))
-                .EnableSearch()
+                .HighlightStyle(new Style(foreground: Color.SeaGreen1, decoration: Decoration.Bold))
                 .AddChoices(new[] {
                             Strings.MenuOptions.DisableSteamVRHome,
                             Strings.MenuOptions.InstallOculusKiller,
                             Strings.MenuOptions.Quit
-                }));
+                });
+
+        prompt.HighlightStyle = new Style(Color.Black, Color.SeaGreen1 );
+        prompt.SearchHighlightStyle = new Style(Color.Black, Color.MediumOrchid1 );
+        prompt.WrapAround = true;
+
+        return AnsiConsole.Prompt(prompt);
     }
 
     private SteamVRHomeKillCommand.Settings PromptForDSVRHSettings()
     {
-        //bool prompt_path = AnsiConsole.Confirm(Strings.Prompts.HaveCustomisedSteamPath);
-
         string stm_pth = AnsiConsole.Prompt<string>(new TextPrompt<string>(Strings.Prompts.EnterSteamFolderPath).AllowEmpty());
 
         if (String.IsNullOrWhiteSpace(stm_pth))
@@ -159,13 +174,26 @@ C#
         return settings;
     }
 
-    private OCKCommand.Settings PromptForOCKSettings()
+    private OCKCommand.Settings? PromptForOCKSettings()
     {
+        bool isAdmin = Utils.IsElevated();
+
+        if (!isAdmin)
+        {
+            AnsiConsole.MarkupLine($"[red]{Strings.Errors.RequiresElevation}[/]");
+            return null;
+        }
+
         bool backup = AnsiConsole.Confirm(Strings.Prompts.BackupOculusDashExe);
+        string oc_pth = AnsiConsole.Prompt<string>(new TextPrompt<string>(Strings.Prompts.EnterOculusFolderPath).AllowEmpty());
+
+        if (String.IsNullOrWhiteSpace(oc_pth))
+            oc_pth = "C:\\Program Files\\Oculus";
 
         var set = new OCKCommand.Settings
         {
-            BackupOCD = backup
+            BackupOCD = backup,
+            OculusPath = oc_pth
         };
 
         return set;

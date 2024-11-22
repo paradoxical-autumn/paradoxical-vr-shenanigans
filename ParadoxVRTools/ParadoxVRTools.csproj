@@ -5,6 +5,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>xyz.its-autumn.$(AssemblyName)</PackageId>
+    <Title>Paradox VR Tools</Title>
   </PropertyGroup>
 
   <ItemGroup>
