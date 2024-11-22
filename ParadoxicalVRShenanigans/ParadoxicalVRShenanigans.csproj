@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>xyz.its-autumn.$(AssemblyName)</PackageId>
-    <Title>Paradox VR Tools</Title>
-    <AssemblyVersion>2024.1122.1355</AssemblyVersion>
+    <Title>Paradoxical VR Shenanigans</Title>
+    <AssemblyVersion>2024.1122.1748</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
