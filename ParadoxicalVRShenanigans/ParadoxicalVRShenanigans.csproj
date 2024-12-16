@@ -13,11 +13,11 @@
     <Copyright>MIT Licence</Copyright>
     <RepositoryUrl>https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <ApplicationIcon>..\icons\icon.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\icons\icon.ico" />
+    <Content Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
