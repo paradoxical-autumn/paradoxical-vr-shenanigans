@@ -34,6 +34,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
         catch (FileNotFoundException)
         {
             AnsiConsole.MarkupLine($"Invalid path");
+            Logger.Error($"Unable to load stm_pth as {stm_pth} due to file not found");
             return 1;
         }
 
@@ -44,6 +45,7 @@ public class SteamVRHomeKillCommand : AsyncCommand<SteamVRHomeKillCommand.Settin
         catch (FileNotFoundException)
         {
             AnsiConsole.MarkupLine($"Unable to load Steam VR settings.");
+            Logger.Error($"Unable to load settings as {set_path} due to file not found");
             return 1;
         }
 
