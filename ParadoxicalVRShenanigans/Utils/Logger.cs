@@ -5,15 +5,12 @@ namespace ParadoxVrTools;
 
 public static class Logger
 {
-    private static string exePath = string.Empty;
+    private static string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
     private static string logName = GenerateLogName(Utils.GetVersion());
+    private static string logPath = exePath + $"\\logs\\{logName}";
 
     public static void Log(string message, bool stacktrace = false)
     {
-        exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-
-        string logPath = exePath + $"\\logs\\{logName}";
-
         if (!Directory.Exists(exePath + "\\logs"))
         {
             Directory.CreateDirectory(exePath + "\\logs");
@@ -25,11 +22,26 @@ public static class Logger
         }
     }
 
+    public static void Error(string message, bool stacktrace = true)
+    {
+        if (!Directory.Exists(exePath + "\\logs"))
+        {
+            Directory.CreateDirectory(exePath + "\\logs");
+        }
+
+        using (StreamWriter w = File.AppendText(logPath))
+        {
+            GenerateLogMessage($"[ERROR!!] {message}", w, stacktrace);
+        }
+    }
+
     private static void GenerateLogMessage(string logMsg, TextWriter txtWriter, bool stacktrace)
     {
+        logMsg = $"[{DateTime.Now.ToLongTimeString()}] {logMsg}";
+
         if (stacktrace)
         {
-            logMsg = logMsg + "\n\nStacktrace:\n" + Environment.StackTrace;
+            logMsg = $"{logMsg} \n\nStacktrace:\n {Environment.StackTrace}";
         }
 
         txtWriter.WriteLine(logMsg);

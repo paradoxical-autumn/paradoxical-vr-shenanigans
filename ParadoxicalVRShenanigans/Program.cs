@@ -13,13 +13,22 @@ public static class Program
         System.Console.OutputEncoding = Encoding.UTF8;
         System.Console.InputEncoding = Encoding.UTF8;
 
-        Logger.Log("PVRS initialised!");
+        Logger.Log($"PVRS initialised! Running version {Utils.GetVersion()}... person to blame: {Locale.Meta.LastCompiler}");
 
         VelopackApp.Build().Run();
 #if !DEBUG
-        await UpdateApp();
+        Logger.Log("Checking for updates...");
+        try
+        {
+            await UpdateApp();
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"Error checking for update! -> {ex.ToString()}", true);
+        }
 #endif
 
+        Logger.Log($"Initialising CommandApp");
         var app = new CommandApp<DefaultCommand>();
         app.Configure(config =>
         {
