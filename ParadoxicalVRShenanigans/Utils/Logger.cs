@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Reflection;
 
 namespace ParadoxVrTools;
@@ -22,7 +23,7 @@ public static class Logger
         }
     }
 
-    public static void Error(string message, bool stacktrace = true)
+    public static void Error(string message, bool stacktrace = true, bool nomarkup = false)
     {
         if (!Directory.Exists(exePath + "\\logs"))
         {
@@ -31,6 +32,10 @@ public static class Logger
 
         using (StreamWriter w = File.AppendText(logPath))
         {
+            if (!nomarkup)
+            {
+                AnsiConsole.MarkupLine("[red]{0}[/]", $"{string.Format(Locale.Errors.Exception, message)}".EscapeMarkup());
+            }
             GenerateLogMessage($"[ERROR!!] {message}", w, stacktrace);
         }
     }

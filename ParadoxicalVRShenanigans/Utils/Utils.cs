@@ -45,13 +45,13 @@ public static class Utils
         string s = (obj != null) ? obj.ToString()! : "NULL";
         try
         {
-            AnsiConsole.MarkupLine("[red]{0}[/]", $"{string.Format(Locale.Errors.Exception, s)}".EscapeMarkup());
+            Logger.Error(s, true);
         }
         catch (Exception e)
         {
-            AnsiConsole.WriteLine($"Exception happened while handling exception:\n{e}");
+            Logger.Error($"Exception happened while handling exception:\n{e}");
             AnsiConsole.WriteLine();
-            AnsiConsole.WriteLine($"Original exception follows:\n{s}");
+            Logger.Error($"Original exception follows:\n{s}");
         }
     }
 
@@ -63,6 +63,8 @@ public static class Utils
             return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 #pragma warning restore CA1416 // Validate platform compatibility
         }
+
+        Logger.Log("Unable to get administrator permissions as we're not running windows.");
 
         return false;
     }

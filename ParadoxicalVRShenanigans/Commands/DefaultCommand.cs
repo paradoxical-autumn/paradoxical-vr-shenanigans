@@ -18,6 +18,7 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
         if (!AnsiConsole.Profile.Capabilities.Interactive)
         {
             AnsiConsole.MarkupLine($"[red]{Locale.Errors.NotInteractiveConsole}[/]");
+            Logger.Log("Not interactive console. Exiting...");
             return 1;
         }
 
@@ -58,8 +59,11 @@ C#
         while (true)
         {
             AnsiConsole.Clear();
+            Logger.Log("Creating menu.");
             DisplayHeaderCommands();
             var choice = ShowMainMenu();
+
+            Logger.Log($"Attempting to run choice: {choice}");
 
             try
             {
@@ -145,6 +149,12 @@ C#
 
         if (System.Environment.OSVersion.Platform != PlatformID.Win32NT)
         {
+            Logger.Log($"""
+----------
+DO NOT REPORT ERRORS ON THIS BUILD. IT IS RUNNING AN UNSUPPORTED OPERATING SYSTEM.
+IT IS RUNNING {System.Environment.OSVersion.Platform}
+----------
+""");
             Panel pnl = Locale.NotStrings.WrongOS();
             AnsiConsole.Write(pnl);
         }
