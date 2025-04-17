@@ -42,6 +42,7 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
         catch (Exception ex)
         {
             Utils.PrintErr(ex);
+            Logger.Error($"{ex}");
             return 1;
         }
 
@@ -66,6 +67,7 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
             })
             .StartAsync(async ctx =>
             {
+                Logger.Log("Downloading O.K.");
                 var task1 = ctx.AddTask("Downloading OculusKiller");
 
                 task1.Value = 1;
@@ -97,22 +99,27 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
                 }
             });
 
+        Logger.Log("finished downloading O.K.");
+
         if (settings.BackupOCD)
         {
+            TimeSpan epoch = DateTime.Now - new DateTime(1970, 1, 1);
+            Logger.Log($"backing up oldé oculus runtime to: {path_to_dash_folder}/OculusDash.exe.{(int)epoch.TotalSeconds}.bak");
             await AnsiConsole.Status()
                 .Spinner(Spinner.Known.BouncingBar)
                 .StartAsync("[italic royalblue1]backing up oculus...[/]", async ctx =>
                 {
-                    MoveFile($"{path_to_dash_folder}/OculusDash.exe", $"{path_to_dash_folder}/OculusDash.exe.bak");
+                    MoveFile($"{path_to_dash_folder}/OculusDash.exe", $"{path_to_dash_folder}/OculusDash.exe.{(int)epoch.TotalSeconds}.bak");
                     //Thread.Sleep(1000);
                 });
 
-            AnsiConsole.MarkupLine($"[italic Seagreen1]backed up![/]");
+            AnsiConsole.MarkupLine($"[italic Seagreen1]backed up! find it at '{path_to_dash_folder}/OculusDash.exe.{(int)epoch.TotalSeconds}.bak'[/]");
         }
 
+        Logger.Log("installing oculus dash replacement");
         await AnsiConsole.Status()
             .Spinner(Spinner.Known.BouncingBar)
-            .StartAsync("[italic royalblue1]installing hacked OculusDash.exe[/]", async ctx =>
+            .StartAsync("[italic royalblue1]installing new OculusDash.exe[/]", async ctx =>
             {
                 MoveFile($"{di.Path}/OculusDash.exe", $"{path_to_dash_folder}/OculusDash.exe");
                 //Thread.Sleep(1000);
