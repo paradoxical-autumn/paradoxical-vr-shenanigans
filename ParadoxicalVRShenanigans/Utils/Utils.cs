@@ -79,6 +79,8 @@ public static class Utils
     
     public static void RebootOVR()
     {
+        AnsiConsole.Write("rebooting OVR, you may notice a screen flash");
+        Logger.Log("aight, we're rebooting OVR. you know what that means... fish!");
         System.Diagnostics.Process proc = new System.Diagnostics.Process();
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -88,13 +90,24 @@ public static class Utils
         startInfo.Arguments = "/C net stop OVRService";
 
         proc.StartInfo = startInfo;
-        proc.Start();
+        AnsiConsole.Status()
+            .Spinner(Spinner.Known.Grenade)
+            .Start("Stopping OVR...\n\n", ctx =>
+            {
+                proc.Start();
 
-        proc.WaitForExit();
+                proc.WaitForExit();
+            });
+        
 
         startInfo.Arguments = "/C net start OVRService";
-        proc.Start();
+        AnsiConsole.Status()
+            .Spinner(Spinner.Known.Clock)
+            .Start("Rebooting OVR...\n\n", ctx =>
+            {
+                proc.Start();
 
-        proc.WaitForExit();
+                proc.WaitForExit();
+            });
     }
 }
