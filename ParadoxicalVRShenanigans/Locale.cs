@@ -19,7 +19,7 @@ public static class Locale
         public const string InteractionPrompt = "What would you like to do?";
         public const string ReturnToMainMenu = "Return to main menu?";
         public const string EnterSteamFolderPath = "Enter the path to your steam installation folder (contains steam.exe)\nOr, leave blank for default: ";
-        public const string EnterOculusFolderPath = "Enter the path to your oculus installation folder (contains steam.exe)\nOr, leave blank for default: ";
+        public const string EnterOculusFolderPath = "Enter the path to your oculus installation folder (contains the 'software', 'staging' and 'support' folders!)\nOr, leave blank for default: ";
         public const string HaveCustomisedSteamPath = "Did you install steam to the default directory?";
         public const string BackupOculusDashExe = "Do you want to create a backup of oculus dash?";
         public const string UpdateAvailable = "There is an update available! Lucky you! Would you like to update?";
@@ -52,6 +52,7 @@ public static class Locale
         public const string DisableSteamVRHome = "Disable SteamVR Home";
         public const string InstallOculusKiller = "Install OculusKiller";
         public const string FixOculusWhiteBar = "Fix Quest Link White Bar";
+        public const string RebootOVR = "Reboot OVR Service (for debugging)";
         public const string Quit = "Quit";
     }
 
@@ -63,6 +64,7 @@ public static class Locale
         public const string BackupOCD = "If Oculus Dash should be backed up or not";
         public const string OculusPath = "The path where Oculus is installed to";
         public const string FixOculusWhiteBar = "[Only required for Quest headsets] In some cases, a white bar can appear while using quest link. This attempts to mitigate that from happening.";
+        public const string RebootOVR = "Provided for debugging - Reboots OVR Service, effectively rebooting oculus without rebooting your PC.";
     }
 
     public static class NotStrings

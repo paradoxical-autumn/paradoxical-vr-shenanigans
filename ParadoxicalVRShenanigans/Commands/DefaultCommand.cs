@@ -100,6 +100,12 @@ C#
                         await new FixWhitebarCommand().ExecuteAsync(context, new FixWhitebarCommand.Settings());
 
                         break;
+                    case Locale.MenuOptions.RebootOVR:
+                        AnsiConsole.Clear();
+
+                        await new RebootOVRCommand().ExecuteAsync(context);
+
+                        break;
                     case Locale.MenuOptions.Quit:
                         AnsiConsole.Clear();
                         return 0;
@@ -143,6 +149,11 @@ C#
             new Markup(Locale.Descriptions.FixOculusWhiteBar.EscapeMarkup())
         );
 
+        table.AddRow(
+            new Markup($"[royalblue1]{Locale.MenuOptions.RebootOVR}[/]"),
+            new Markup(Locale.Descriptions.RebootOVR.EscapeMarkup())
+        );
+
         AnsiConsole.WriteLine();
         AnsiConsole.Write(table);
         AnsiConsole.WriteLine();
@@ -169,6 +180,7 @@ IT IS RUNNING {System.Environment.OSVersion.Platform}
                             Locale.MenuOptions.DisableSteamVRHome,
                             Locale.MenuOptions.InstallOculusKiller,
                             Locale.MenuOptions.FixOculusWhiteBar,
+                            Locale.MenuOptions.RebootOVR,
                             Locale.MenuOptions.Quit
                 });
 
@@ -200,11 +212,14 @@ IT IS RUNNING {System.Environment.OSVersion.Platform}
 
         if (!isAdmin)
         {
+            Logger.Log("Unable to proceed: not sudo.");
             AnsiConsole.MarkupLine($"[red]{Locale.Errors.RequiresElevation}[/]");
             return null;
         }
 
+        Logger.Log("Prompting to for backup");
         bool backup = AnsiConsole.Confirm(Locale.Prompts.BackupOculusDashExe);
+        Logger.Log("Prompting to for folder");
         string oc_pth = AnsiConsole.Prompt<string>(new TextPrompt<string>(Locale.Prompts.EnterOculusFolderPath).AllowEmpty());
 
         if (String.IsNullOrWhiteSpace(oc_pth))
