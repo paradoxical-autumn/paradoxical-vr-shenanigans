@@ -72,7 +72,7 @@ public static class Utils
     public static string GetVersion()
     {
         var version = Assembly.GetEntryAssembly()?.GetName().Version;
-        var versionString = version != null ? $"{version.Major}.{version.Minor}.{version.Build}" : "NaN";
+        var versionString = version != null ? $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}" : "NaN";
 
         return versionString;
     }
