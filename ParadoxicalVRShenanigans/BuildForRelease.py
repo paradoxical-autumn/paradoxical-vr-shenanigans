@@ -7,6 +7,8 @@ PACK_AUTHORS = r"paradoxical autumn"
 
 import os
 
+dotenv.load_dotenv()
+
 response = os.system("choice /M \"are you sure you wanna continue?\"")
 
 if response == 2:
@@ -31,4 +33,4 @@ print(target_attr_line)
 
 os.system("vpk download github --repoUrl https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans")
 os.system(f"vpk pack -u \"{PACK_ID}\" -v {target_attr_line} --packTitle \"{PACK_NAME}\" --icon \"{PACK_ICON}\" --packAuthors \"{PACK_AUTHORS}\" -p ./publish -e {PACK_ID}.exe")
-# os.system(r"vpk upload github --repoUrl")
+os.system(rf"vpk upload github --repoUrl https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans --token {os.environ['GITHUB_TOKEN']}")
