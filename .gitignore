@@ -5,6 +5,7 @@
 
 # prdx
 version.cs
+.env
 
 # User-specific files
 *.rsuser
