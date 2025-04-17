@@ -13,7 +13,10 @@ public static class Program
         System.Console.OutputEncoding = Encoding.UTF8;
         System.Console.InputEncoding = Encoding.UTF8;
 
-        Logger.Log($"PVRS initialised! Running version {Utils.GetVersion()}... person to blame: {Locale.Meta.LastCompiler}");
+        Logger.Log($"PVRS initialised! Running version {Utils.GetVersion()}...");
+#if DEBUG
+        Logger.Log("\n-----\nThis is a DEVELOPMENT build!\nAll hope abandon ye who enter here!\n-----");
+#endif
 
         VelopackApp.Build().Run();
 #if !DEBUG
