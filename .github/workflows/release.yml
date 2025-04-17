@@ -41,6 +41,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
       - name: Build Project
         run: dotnet publish ${{ env.PROJECT }}/${{ env.PROJECT }}.csproj -c Release -o publish/${{ matrix.platform }}${{ matrix.is-portable && '-portable' || '' }} -r ${{ matrix.platform }} ${{ matrix.self-contained && '--self-contained' || '--no-self-contained' }}
