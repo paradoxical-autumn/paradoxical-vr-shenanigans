@@ -4,7 +4,7 @@
 // dont touch it pls
 // ~ prdx
 using System.Reflection;
-[assembly: AssemblyVersion("<#= this.Year #>.<#= this.Month #>.<#= this.Day #>.<#= this.Minutes #>")]
+[assembly: AssemblyVersion("<#= this.Year #>.<#= this.Month #><#= this.Day #>.<#= this.Minutes #>")]
 
 <#+
 
