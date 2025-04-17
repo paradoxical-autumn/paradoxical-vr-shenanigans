@@ -39,6 +39,9 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Build Project
+        run: dotnet publish ${{ env.PROJECT }}/${{ env.PROJECT }}.csproj -c Release -o publish/${{ matrix.platform }}${{ matrix.is-portable && '-portable' || '' }} -r ${{ matrix.platform }} ${{ matrix.self-contained && '--self-contained' || '--no-self-contained' }}
+
       - name: Get Version from Project File
         id: get-version
         shell: bash
@@ -47,9 +50,6 @@ jobs:
 
       - name: Install Velopack CLI
         run: dotnet tool install -g vpk --version ${{ env.VPK_VERSION }}
-
-      - name: Build Project
-        run: dotnet publish ${{ env.PROJECT }}/${{ env.PROJECT }}.csproj -c Release -o publish/${{ matrix.platform }}${{ matrix.is-portable && '-portable' || '' }} -r ${{ matrix.platform }} ${{ matrix.self-contained && '--self-contained' || '--no-self-contained' }}
 
       - name: Download Previous Releases
         run: vpk download github --repoUrl ${{ github.server_url }}/${{ github.repository }} --channel ${{ matrix.platform }}${{ matrix.is-portable && '-portable' || '' }} -o releases
