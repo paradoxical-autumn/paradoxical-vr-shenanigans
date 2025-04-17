@@ -45,7 +45,7 @@ jobs:
       - name: Get Version from Project File
         id: get-version
         shell: bash
-        run: echo "version=$(grep -oE '<AssemblyVersion>[^<]+' ${{ env.PROJECT }}/${{ env.PROJECT }}.csproj | sed 's/<AssemblyVersion>//')" >> $GITHUB_OUTPUT
+        run: echo "version=$(grep -oE '\[assembly: AssemblyVersion\("[^\"]+' ${{ env.PROJECT }}/version.cs | sed 's/\[assembly: AssemblyVersion("//')" >> $GITHUB_OUTPUT
 
       - name: Install Velopack CLI
         run: dotnet tool install -g vpk --version ${{ env.VPK_VERSION }}
