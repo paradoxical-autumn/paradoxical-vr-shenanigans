@@ -29,7 +29,11 @@ target_attr_line = target_attr_line.strip()
 target_attr_line = target_attr_line.lstrip('[assembly: AssemblyVersion("')
 target_attr_line = target_attr_line.rstrip('")]')
 
-print(target_attr_line)
+print(f"found version {target_attr_line}")
+response = os.system("choice /M \"do you wanna continue to packing and uploading?\"")
+
+if response == 2:
+    exit()
 
 os.system("vpk download github --repoUrl https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans")
 os.system(f"vpk pack -u \"{PACK_ID}\" -v {target_attr_line} --packTitle \"{PACK_NAME}\" --icon \"{PACK_ICON}\" --packAuthors \"{PACK_AUTHORS}\" -p ./publish -e {PACK_ID}.exe")
