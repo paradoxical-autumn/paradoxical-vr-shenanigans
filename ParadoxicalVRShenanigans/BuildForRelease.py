@@ -18,7 +18,7 @@ dotenv.load_dotenv()
 prompt("compile?")
 
 assigned_time = datetime.now(timezone.utc)
-time_ver_str = fr"{assigned_time.year}.{assigned_time.month}{assigned_time.day}.{assigned_time.hour}{assigned_time.minute}"
+time_ver_str = fr"{assigned_time.year}.{assigned_time.month}{str(assigned_time.day).rjust(2, "0")}.{assigned_time.hour}{str(assigned_time.minute).rjust(2, "0")}"
 print(f"using assigned time: {time_ver_str}")
 os.system("dotnet publish -c Release --self-contained -r win-x64 -o ./publish")
 
