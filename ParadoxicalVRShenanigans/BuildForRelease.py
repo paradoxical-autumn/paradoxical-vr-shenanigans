@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 import os
 
 PACK_ID = r"ParadoxicalVRShenanigans"
-PACK_NAME = r"Paradoxical VR Shenanigans"
+PACK_NAME = r"PVRS"
 PACK_ICON = r"..\Icons\icon.ico"
 PACK_AUTHORS = r"paradoxical autumn"
 
@@ -19,9 +19,10 @@ prompt("compile?")
 
 assigned_time = datetime.now(timezone.utc)
 time_ver_str = fr"{assigned_time.year}.{assigned_time.month}{str(assigned_time.day).rjust(2, "0")}.{assigned_time.hour}{str(assigned_time.minute).rjust(2, "0")}"
-print(f"using assigned time: {time_ver_str}")
+print(f"guessing assigned time: {time_ver_str}, this may be out by a minute if you compiled close to the changeover.")
 os.system("dotnet publish -c Release --self-contained -r win-x64 -o ./publish")
 
+print(f"\nit is strongly recommended to open the app at ./publish to check the build time before continuing and compare the reported version to the version listed below.\n    {time_ver_str}\n")
 prompt("pack?")
 
 os.system("vpk download github --repoUrl https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans")
