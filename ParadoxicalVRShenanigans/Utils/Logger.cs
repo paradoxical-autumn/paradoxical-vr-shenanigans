@@ -40,6 +40,21 @@ public static class Logger
         }
     }
 
+    public static void ImproperExit(string message, bool stacktrace = true, int exitCode = 0)
+    {
+        if (!Directory.Exists(exePath + "\\logs"))
+        {
+            Directory.CreateDirectory(exePath + "\\logs");
+        }
+
+        using (StreamWriter w = File.AppendText(logPath))
+        {
+            GenerateLogMessage($"\n--- IMPROPERLY EXITING ---\n{message}\n---", w, stacktrace);
+        }
+        
+        System.Environment.Exit(exitCode);
+    }
+
     private static void GenerateLogMessage(string logMsg, TextWriter txtWriter, bool stacktrace)
     {
         logMsg = $"[{DateTime.Now.ToLongTimeString()}] {logMsg}";

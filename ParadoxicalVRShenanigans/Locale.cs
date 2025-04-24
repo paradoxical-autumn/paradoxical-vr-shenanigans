@@ -53,6 +53,7 @@ public static class Locale
         public const string InstallOculusKiller = "Install OculusKiller";
         public const string FixOculusWhiteBar = "Fix Quest Link White Bar";
         public const string RebootOVR = "Reboot OVR Service (for debugging)";
+        public const string ElevateApp = "Reboot as administrator";
         public const string Quit = "Quit";
     }
 

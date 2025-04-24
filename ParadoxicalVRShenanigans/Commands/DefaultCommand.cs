@@ -106,6 +106,12 @@ C#
                         await new RebootOVRCommand().ExecuteAsync(context);
 
                         break;
+                    case Locale.MenuOptions.ElevateApp:
+                        AnsiConsole.Clear();
+
+                        await new ElevateCommand().ExecuteAsync(context);
+
+                        break;
                     case Locale.MenuOptions.Quit:
                         AnsiConsole.Clear();
                         return 0;
@@ -181,6 +187,7 @@ IT IS RUNNING {System.Environment.OSVersion.Platform}
                             Locale.MenuOptions.InstallOculusKiller,
                             Locale.MenuOptions.FixOculusWhiteBar,
                             Locale.MenuOptions.RebootOVR,
+                            Locale.MenuOptions.ElevateApp,
                             Locale.MenuOptions.Quit
                 });
 
