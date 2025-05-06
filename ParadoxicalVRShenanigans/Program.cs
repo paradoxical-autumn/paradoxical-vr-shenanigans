@@ -21,6 +21,7 @@ public static class Program
         VelopackApp.Build().Run();
 #if !DEBUG
         Logger.Log("Checking for updates...");
+        Console.WriteLine("Checking for updates...");
         try
         {
             await UpdateApp();
