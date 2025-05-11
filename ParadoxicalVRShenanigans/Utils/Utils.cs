@@ -81,6 +81,7 @@ public static class Utils
     {
         AnsiConsole.Write("rebooting OVR, you may notice a screen flash");
         Logger.Log("aight, we're rebooting OVR. you know what that means... fish!");
+        Logger.Error("Rebooting OVR via RebootOVR() is deprecated. Please use KillOVR() instead.", true, true);
         System.Diagnostics.Process proc = new System.Diagnostics.Process();
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -109,5 +110,37 @@ public static class Utils
 
                 proc.WaitForExit();
             });
+    }
+
+    public static bool KillOVR()
+    {
+        AnsiConsole.Write("Stopping all OVR related processes, you may notice a screen flash");
+        Logger.Log("Killing OVR now...");
+        
+        System.Diagnostics.Process proc = new System.Diagnostics.Process();
+        System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+        //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+
+        startInfo.UseShellExecute = false;
+        startInfo.FileName = "cmd.exe";
+        startInfo.Arguments = "/C net stop OVRService";
+
+        proc.StartInfo = startInfo;
+        AnsiConsole.Status()
+            .Spinner(Spinner.Known.Grenade)
+            .Start("Stopping OVR...\n\n", ctx =>
+            {
+                proc.Start();
+
+                proc.WaitForExit();
+            });
+
+        if (proc.ExitCode != 0)
+        {
+            Logger.Error("Failed to kill OVR process.");
+            return false;
+        }
+        
+        return true;
     }
 }
