@@ -18,7 +18,7 @@ public class RebootOVRCommand : AsyncCommand
         }
 
         Logger.Log("rebooting OVR...");
-        Utils.RebootOVR();
+        Utils.KillOVR();
 
         return 0;
     }
