@@ -1,6 +1,7 @@
 ﻿using Spectre.Console;
 using System.Reflection;
 using System.Security.Principal;
+using System.ServiceProcess;
 
 namespace ParadoxVrTools;
 public static class Utils
@@ -114,32 +115,35 @@ public static class Utils
 
     public static bool KillOVR()
     {
+        ServiceController sc = new ServiceController("OVRService");
+
+        if (sc.Status == ServiceControllerStatus.Stopped)
+        {
+            Logger.Log("OVRService has already stopped. Not rebooting.");
+            return true;
+        }
+        
         AnsiConsole.Write("Stopping all OVR related processes, you may notice a screen flash");
         Logger.Log("Killing OVR now...");
-        
-        System.Diagnostics.Process proc = new System.Diagnostics.Process();
-        System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-        //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 
-        startInfo.UseShellExecute = false;
-        startInfo.FileName = "cmd.exe";
-        startInfo.Arguments = "/C net stop OVRService";
-
-        proc.StartInfo = startInfo;
-        AnsiConsole.Status()
-            .Spinner(Spinner.Known.Grenade)
-            .Start("Stopping OVR...\n\n", ctx =>
-            {
-                proc.Start();
-
-                proc.WaitForExit();
-            });
-
-        if (proc.ExitCode != 0)
+        if (!sc.CanStop)
         {
-            Logger.Error("Failed to kill OVR process.");
+            Logger.Error("Unable to stop OVRService!! Bailing out...");
             return false;
         }
+
+        try
+        {
+            AnsiConsole.Status()
+                .Spinner(Spinner.Known.Grenade)
+                .Start("Stopping OVR...\n\n", ctx => { sc.Stop(); });
+        }
+        catch (InvalidOperationException ex)
+        {
+            Logger.Error($"Unable to stop OVRService: {ex.ToString()}");
+            return false;
+        }
+        
         
         return true;
     }
