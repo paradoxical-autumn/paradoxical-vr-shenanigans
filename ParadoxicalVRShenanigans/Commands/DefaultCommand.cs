@@ -18,7 +18,7 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
         if (!AnsiConsole.Profile.Capabilities.Interactive)
         {
             AnsiConsole.MarkupLine($"[red]{Locale.Errors.NotInteractiveConsole}[/]");
-            Logger.Log("Not interactive console. Exiting...");
+            Logger.Error("Not interactive console. Exiting...");
             return 1;
         }
 
@@ -120,7 +120,28 @@ C#
             }
             catch (Exception ex)
             {
-                Utils.PrintErr(ex);
+                AnsiConsole.MarkupLine("[red]\n---[[CRITICAL ERROR]]---\n:(\nAn unhandled exception occurred. Please report it to the developers![/]");
+                AnsiConsole.WriteException(ex, new ExceptionSettings
+                {
+                    Format = ExceptionFormats.ShortenEverything | ExceptionFormats.ShowLinks,
+                    Style = new ExceptionStyle
+                    {
+                        Exception = new Style().Foreground(Color.Grey),
+                        Message = new Style().Foreground(Color.White),
+                        NonEmphasized = new Style().Foreground(Color.Cornsilk1),
+                        Parenthesis = new Style().Foreground(Color.Cornsilk1),
+                        Method = new Style().Foreground(Color.Red),
+                        ParameterName = new Style().Foreground(Color.Cornsilk1),
+                        ParameterType = new Style().Foreground(Color.Red),
+                        Path = new Style().Foreground(Color.Red),
+                        LineNumber = new Style().Foreground(Color.Cornsilk1),
+                    }
+                });
+                AnsiConsole.MarkupLine($"\n[red]Please grab the current log file and send it our way. Thanks!![/]\n-> [royalblue1]Find it here:[/] {Logger.LogLocation}\n\nWhile you can continue using the app, it is not recommended to do so.\n");
+                Logger.Error($"Unhandled exception\n->{ex.ToString()}", true, true);
+#if DEBUG
+                throw ex;
+#endif
             }
 
             if (!AnsiConsole.Confirm(Locale.Prompts.ReturnToMainMenu))
