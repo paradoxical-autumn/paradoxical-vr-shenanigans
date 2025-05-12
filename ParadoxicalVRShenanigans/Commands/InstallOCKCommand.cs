@@ -28,6 +28,8 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
             AnsiConsole.MarkupLine($"[red]{Locale.Errors.RequiresElevation}[/]");
             return 1;
         }
+        
+        Utils.KillOVR();
 
         string path_to_dash_folder = $"{settings.OculusPath}/Support/oculus-dash/dash/bin";
         FileAttributes attr;
@@ -141,16 +143,6 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
             });
 
         AnsiConsole.MarkupLine("[italic seagreen1]Finished all tasks successfully.[/]");
-
-        if (!AnsiConsole.Confirm(Locale.Prompts.RebootOVR))
-        {
-            AnsiConsole.MarkupLine("Okay, you'll have to reboot your PC to finish the installation.");
-            return 0;
-        }
-
-        AnsiConsole.MarkupLine("Got it, rebooting OVR.");
-
-        Utils.RebootOVR();
 
         return 0;
     }
