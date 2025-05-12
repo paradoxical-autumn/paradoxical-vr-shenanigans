@@ -12,6 +12,7 @@ public class FixWhitebarCommand : AsyncCommand<FixWhitebarCommand.Settings>
 
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
+        Utils.KillOVR();
         System.Diagnostics.Process proc = new System.Diagnostics.Process();
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -24,16 +25,6 @@ public class FixWhitebarCommand : AsyncCommand<FixWhitebarCommand.Settings>
         proc.Start();
 
         proc.WaitForExit();
-
-        if (!AnsiConsole.Confirm(Locale.Prompts.RebootOVR))
-        {
-            AnsiConsole.MarkupLine("Okay, you'll have to reboot your PC to finish the installation.");
-            return 0;
-        }
-
-        AnsiConsole.MarkupLine("Got it, rebooting OVR.");
-
-        Utils.RebootOVR();
 
         return 0;
     }
