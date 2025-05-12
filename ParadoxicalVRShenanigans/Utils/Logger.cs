@@ -9,6 +9,8 @@ public static class Logger
     private static string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
     private static string logName = GenerateLogName(Utils.GetVersion());
     private static string logPath = exePath + $"\\logs\\{logName}";
+    
+    public static string LogLocation => logPath;
 
     public static void Log(string message, bool stacktrace = false)
     {
