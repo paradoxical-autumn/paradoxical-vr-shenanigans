@@ -11,6 +11,12 @@ public class DefaultCommand : AsyncCommand<DefaultCommand.Settings>
         [Description("Prints helpful information about the app.")]
         [CommandOption("-i|--info|--information")]
         public bool PrintVersion { get; set; }
+        
+        // This goes unused here because it is checked before we reach this point.
+        // It simply exists here for the help command to pick up on.
+        [Description("Skips checking for updates")]
+        [CommandOption("-s|--skip-updates")]
+        public bool _ { get; set; }
     }
 
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)

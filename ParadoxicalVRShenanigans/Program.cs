@@ -20,11 +20,9 @@ public static class Program
 
         VelopackApp.Build().Run();
 #if !DEBUG
-        Logger.Log("Checking for updates...");
-        Console.WriteLine("Checking for updates...");
         try
         {
-            await UpdateApp();
+            await UpdateApp(args);
         }
         catch (Exception ex)
         {
@@ -37,13 +35,23 @@ public static class Program
         app.Configure(config =>
         {
             config.SetApplicationName(Locale.Application.AppName);
+            config.SetApplicationVersion(Utils.GetVersion());
         });
 
         return await app.RunAsync(args);
     }
 
-    private static async Task UpdateApp()
+    private static async Task UpdateApp(string[] args)
     {
+        if (args.Contains("-s") || args.Contains("--skip-updates"))
+        {
+            Logger.Log("Skipping update check...");
+            return;
+        }
+        
+        Logger.Log("Checking for updates...");
+        Console.WriteLine("Checking for updates...");
+        
         var mgr = new UpdateManager(new GithubSource("https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans", null, false));
         var newVersion = await mgr.CheckForUpdatesAsync();
 
