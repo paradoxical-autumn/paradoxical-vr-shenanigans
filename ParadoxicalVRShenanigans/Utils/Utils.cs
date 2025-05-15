@@ -113,8 +113,13 @@ public static class Utils
             });
     }
 
+#pragma warning disable CA1416 // Validate platform compatibility
     public static bool KillOVR()
     {
+        if (System.Environment.OSVersion.Platform != PlatformID.Win32NT)
+        {
+            return false;
+        }
         ServiceController sc = new ServiceController("OVRService");
 
         if (sc.Status == ServiceControllerStatus.Stopped)
@@ -147,4 +152,5 @@ public static class Utils
         
         return true;
     }
+#pragma warning restore CA1416 // Validate platform compatibility
 }
