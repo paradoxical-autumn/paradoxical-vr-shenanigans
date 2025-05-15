@@ -18,7 +18,12 @@ public class RebootOVRCommand : AsyncCommand
         }
 
         Logger.Log("rebooting OVR...");
-        Utils.KillOVR();
+        bool stable = Utils.KillOVR();
+        if (!stable)
+        {
+            Logger.Error("Failed to disable OVR. Bailing out.");
+            return 1;
+        }
 
         return 0;
     }

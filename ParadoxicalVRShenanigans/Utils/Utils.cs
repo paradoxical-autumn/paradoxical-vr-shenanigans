@@ -118,6 +118,7 @@ public static class Utils
     {
         if (System.Environment.OSVersion.Platform != PlatformID.Win32NT)
         {
+            Logger.Error("Not disabling OVR due to incorrect platform.");
             return false;
         }
         ServiceController sc = new ServiceController("OVRService");

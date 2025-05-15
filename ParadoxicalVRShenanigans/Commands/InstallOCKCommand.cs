@@ -29,7 +29,12 @@ public class OCKCommand : AsyncCommand<OCKCommand.Settings>
             return 1;
         }
         
-        Utils.KillOVR();
+        bool stable = Utils.KillOVR();
+        if (!stable)
+        {
+            Logger.Error("Failed to disable OVR. Bailing out.");
+            return 1;
+        }
 
         string path_to_dash_folder = $"{settings.OculusPath}/Support/oculus-dash/dash/bin";
         FileAttributes attr;

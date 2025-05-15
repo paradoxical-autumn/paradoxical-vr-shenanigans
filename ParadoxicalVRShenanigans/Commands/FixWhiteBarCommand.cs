@@ -12,7 +12,12 @@ public class FixWhitebarCommand : AsyncCommand<FixWhitebarCommand.Settings>
 
     public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        Utils.KillOVR();
+        bool stable = Utils.KillOVR();
+        if (!stable)
+        {
+            Logger.Error("Failed to disable OVR. Bailing out.");
+            return 1;
+        }
         System.Diagnostics.Process proc = new System.Diagnostics.Process();
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
