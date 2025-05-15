@@ -139,9 +139,6 @@ C#
                 });
                 AnsiConsole.MarkupLine($"\n[red]Please grab the current log file and send it our way. Thanks!![/]\n-> [royalblue1]Find it here:[/] {Logger.LogLocation}\n\nWhile you can continue using the app, it is not recommended to do so.\n");
                 Logger.Error($"Unhandled exception\n->{ex.ToString()}", true, true);
-#if DEBUG
-                throw ex;
-#endif
             }
 
             if (!AnsiConsole.Confirm(Locale.Prompts.ReturnToMainMenu))
