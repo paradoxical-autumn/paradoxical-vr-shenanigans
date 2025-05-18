@@ -43,7 +43,8 @@ public static class Program
 
     private static async Task UpdateApp(string[] args)
     {
-        if (args.Contains("-s") || args.Contains("--skip-updates"))
+        string[] updateSkipArgs = {"-s", "--skip-updates", "-h", "--help"};
+        if (args.Intersect(updateSkipArgs).Any())
         {
             Logger.Log("Skipping update check...");
             return;
