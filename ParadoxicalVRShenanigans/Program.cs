@@ -4,6 +4,7 @@ using Spectre.Console.Cli;
 using System.Text;
 using Velopack;
 using Velopack.Sources;
+using System.Text.Json;
 
 namespace ParadoxVrTools;
 public static class Program
@@ -19,7 +20,6 @@ public static class Program
 #endif
 
         VelopackApp.Build().Run();
-#if !DEBUG
         try
         {
             await UpdateApp(args);
@@ -28,7 +28,6 @@ public static class Program
         {
             Logger.Error($"Error checking for update! -> {ex.ToString()}", true);
         }
-#endif
 
         Logger.Log($"Initialising CommandApp");
         var app = new CommandApp<DefaultCommand>();
@@ -49,6 +48,49 @@ public static class Program
             Logger.Log("Skipping update check...");
             return;
         }
+        
+        string settingsFile = "./cfg/settings.json";
+        DateTime now = DateTime.Now.ToUniversalTime();
+        int unixTimestamp = (int)(now - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+        
+        if (!Directory.Exists("cfg"))
+        {
+            Directory.CreateDirectory("cfg");
+        }
+        
+        if (!File.Exists(settingsFile))
+        {
+            Logger.Log("Generating settings file...");
+            ApplicationSettings settings = new ApplicationSettings
+            {
+                last_update_time = unixTimestamp,
+            };
+            string jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(settingsFile, jsonString);
+        }
+        else
+        {
+            Logger.Log("Reading settings file...");
+            string jsonString = File.ReadAllText(settingsFile);
+            
+            ApplicationSettings settings = JsonSerializer.Deserialize<ApplicationSettings>(jsonString)!;
+            if (unixTimestamp - settings.last_update_time < 86400)
+            {
+                Logger.Log("Auto-skipping update check...");
+                return;
+            }
+            else
+            {
+                Logger.Log("Updating settings file...");
+                settings.last_update_time = unixTimestamp;
+                jsonString = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(settingsFile, jsonString);
+            }
+        }
+        
+#if DEBUG
+        return;
+#endif
         
         Logger.Log("Checking for updates...");
         Console.WriteLine("Checking for updates...");
