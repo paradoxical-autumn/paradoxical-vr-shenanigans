@@ -54,6 +54,9 @@ public static class Locale
         public const string FixOculusWhiteBar = "Fix Quest Link White Bar";
         public const string RebootOVR = "Reboot OVR Service (for debugging)";
         public const string ElevateApp = "Reboot as administrator";
+        public const string DebugOptions = "Debugging options";
+        public const string OpenLogs = "Open logs";
+        public const string CheckForUpdates = "Check for updates";
         public const string Quit = "Quit";
     }
 

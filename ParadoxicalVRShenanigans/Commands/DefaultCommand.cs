@@ -118,6 +118,13 @@ C#
                         await new ElevateCommand().ExecuteAsync(context);
 
                         break;
+                        
+                    case Locale.MenuOptions.DebugOptions:
+                        AnsiConsole.Clear();
+                        
+                        await new DebugMenu().ExecuteAsync(context);
+
+                        break;
                     case Locale.MenuOptions.Quit:
                         AnsiConsole.Clear();
                         return 0;
@@ -212,6 +219,7 @@ IT IS RUNNING {System.Environment.OSVersion.Platform}
                             Locale.MenuOptions.FixOculusWhiteBar,
                             Locale.MenuOptions.RebootOVR,
                             Locale.MenuOptions.ElevateApp,
+                            Locale.MenuOptions.DebugOptions,
                             Locale.MenuOptions.Quit
                 });
 

@@ -91,31 +91,7 @@ public static class Program
 #if DEBUG
         return;
 #endif
-        
-        Logger.Log("Checking for updates...");
-        Console.WriteLine("Checking for updates...");
-        
-        var mgr = new UpdateManager(new GithubSource("https://github.com/paradoxical-autumn/paradoxical-vr-shenanigans", null, false));
-        var newVersion = await mgr.CheckForUpdatesAsync();
 
-        if (newVersion == null) return;
-
-        if (!AnsiConsole.Confirm($"{Locale.Prompts.UpdateAvailable} ({Utils.GetVersion()} -> {newVersion.TargetFullRelease.Version})")) return;
-
-        await AnsiConsole.Status()
-            .Spinner(Spinner.Known.Aesthetic)
-            .StartAsync(Locale.Statuses.Starting, async ctx =>
-            {
-                await Task.Delay(1000);
-                await mgr.DownloadUpdatesAsync(newVersion);
-            });
-
-        await AnsiConsole.Status()
-            .Spinner(Spinner.Known.Aesthetic)
-            .StartAsync(Locale.Statuses.Starting, async ctx =>
-            {
-                await Task.Delay(1000);
-                mgr.ApplyUpdatesAndRestart(newVersion);
-            });
+        await Utils.CheckForUpdates();
     }
 }
