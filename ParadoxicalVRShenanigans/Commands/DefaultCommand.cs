@@ -226,6 +226,7 @@ IT IS RUNNING {System.Environment.OSVersion.Platform}
         prompt.HighlightStyle = new Style(Color.Black, Color.SeaGreen1 );
         prompt.SearchHighlightStyle = new Style(Color.Black, Color.MediumOrchid1 );
         prompt.WrapAround = true;
+        prompt.EnableSearch();
 
         return AnsiConsole.Prompt(prompt);
     }
