@@ -11,6 +11,7 @@ public static class Logger
     private static string logPath = exePath + $"\\logs\\{logName}";
     
     public static string LogLocation => logPath;
+    public static string LogsFolder => $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!}\\logs";
 
     public static void Log(string message, bool stacktrace = false)
     {
