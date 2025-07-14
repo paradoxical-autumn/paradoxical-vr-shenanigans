@@ -18,6 +18,13 @@ public static class Program
 #if DEBUG
         Logger.Log("\n-----\nThis is a DEVELOPMENT build!\nAll hope abandon ye who enter here!\n-----");
 #endif
+        
+        string[] versionArgs = {"-v", "--version"};
+        if (args.Intersect(versionArgs).Any())
+        {
+            AnsiConsole.WriteLine($"{Utils.GetVersion()}");
+            return 0;
+        }
 
         VelopackApp.Build().Run();
         try
