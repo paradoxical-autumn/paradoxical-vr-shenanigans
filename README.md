@@ -1,3 +1,10 @@
+>[!warning]
+> Notice! I am no longer actively updating this repo due to swapping VR headset and the kinda oculus-centric nature of this tool.</br>
+> Because of this, updates may be slow and will be more SteamVR related.</br>
+> Thanks for your interest!</br>
+> </br>
+> *Issues and PRs are still accepted!*
+
 # paradoxical-vr-shenanigans
 _i originally made this for a friend who needed some tweaking to their VR setup.
 dont expect updates to this!_
